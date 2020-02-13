@@ -194,6 +194,8 @@ public:
         transformSum[4] = laserOdometry->pose.pose.position.y;
         transformSum[5] = laserOdometry->pose.pose.position.z;
 
+        std::cout << ros::Time::now() << ", " << transformSum[3] << ", " << transformSum[4] << ", " << transformSum[5] << std::endl;
+
         transformAssociateToMap();
 
         geoQuat = tf::createQuaternionMsgFromRollPitchYaw

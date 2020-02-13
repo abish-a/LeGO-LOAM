@@ -54,20 +54,12 @@ extern const string imuTopic = "/imu/data";
 extern const string fileDirectory = "/tmp/";
 
 // VLP-16
-//extern const int N_SCAN = 16;
-//extern const int Horizon_SCAN = 1800;
-//extern const float ang_res_x = 0.2;
-//extern const float ang_res_y = 2.0;
-//extern const float ang_bottom = 15.0+0.1;
-//extern const int groundScanInd = 7;
-
-// HDL-64
-extern const int N_SCAN = 64;
-extern const int Horizon_SCAN = 1800;
-extern const float ang_res_x = 0.2;
-extern const float ang_res_y = 0.427;
-extern const float ang_bottom = 24.9;
-extern const int groundScanInd = 50;
+// extern const int N_SCAN = 16;
+// extern const int Horizon_SCAN = 1800;
+// extern const float ang_res_x = 0.2;
+// extern const float ang_res_y = 2.0;
+// extern const float ang_bottom = 15.0+0.1;
+// extern const int groundScanInd = 7;
 
 // HDL-32E
 // extern const int N_SCAN = 32;
@@ -76,6 +68,14 @@ extern const int groundScanInd = 50;
 // extern const float ang_res_y = 41.33/float(N_SCAN-1);
 // extern const float ang_bottom = 30.67;
 // extern const int groundScanInd = 20;
+
+// HDL-64E
+extern const int N_SCAN = 64;
+extern const int Horizon_SCAN = 1800;
+extern const float ang_res_x = 0.2;
+extern const float ang_res_y = 0.427;
+extern const float ang_bottom = 24.9;
+extern const int groundScanInd = 50;
 
 // Ouster users may need to uncomment line 159 in imageProjection.cpp
 // Usage of Ouster imu data is not fully supported yet, please just publish point cloud data
@@ -117,12 +117,11 @@ extern const float edgeThreshold = 0.1;
 extern const float surfThreshold = 0.1;
 extern const float nearestFeatureSearchSqDist = 25;
 
-
 // Mapping Params
 extern const float surroundingKeyframeSearchRadius = 50.0; // key frame that is within n meters from current pose will be considerd for scan-to-map optimization (when loop closure disabled)
 extern const int   surroundingKeyframeSearchNum = 50; // submap size (when loop closure enabled)
 // history key frames (history submap for loop closure)
-extern const float historyKeyframeSearchRadius = 7.0; // key frame that is within n meters from current pose will be considerd for loop closure
+extern const float historyKeyframeSearchRadius = 5.0; // key frame that is within n meters from current pose will be considerd for loop closure
 extern const int   historyKeyframeSearchNum = 25; // 2n+1 number of hostory key frames will be fused into a submap for loop closure
 extern const float historyKeyframeFitnessScore = 0.3; // the smaller the better alignment
 

@@ -428,7 +428,8 @@ public:
 
         imuPointerLast = (imuPointerLast + 1) % imuQueLength;
 
-        imuTime[imuPointerLast] = imuIn->header.stamp.toSec();
+        // imuTime[imuPointerLast] = imuIn->header.stamp.toSec();
+        imuTime[imuPointerLast] = ros::Time::now().toSec();
 
         imuRoll[imuPointerLast] = roll;
         imuPitch[imuPointerLast] = pitch;
@@ -846,7 +847,8 @@ public:
 
     void TransformToStart(PointType const * const pi, PointType * const po)
     {
-        float s = 10 * (pi->intensity - int(pi->intensity));
+        float s = 1;
+        // float s = 10 * (pi->intensity - int(pi->intensity));
 
         float rx = s * transformCur[0];
         float ry = s * transformCur[1];
@@ -1749,13 +1751,13 @@ public:
 
         int cornerPointsLessSharpNum = cornerPointsLessSharp->points.size();
         for (int i = 0; i < cornerPointsLessSharpNum; i++) {
-            TransformToEnd(&cornerPointsLessSharp->points[i], &cornerPointsLessSharp->points[i]);
+            // TransformToEnd(&cornerPointsLessSharp->points[i], &cornerPointsLessSharp->points[i]);
         }
 
 
         int surfPointsLessFlatNum = surfPointsLessFlat->points.size();
         for (int i = 0; i < surfPointsLessFlatNum; i++) {
-            TransformToEnd(&surfPointsLessFlat->points[i], &surfPointsLessFlat->points[i]);
+            // TransformToEnd(&surfPointsLessFlat->points[i], &surfPointsLessFlat->points[i]);
         }
 
         pcl::PointCloud<PointType>::Ptr laserCloudTemp = cornerPointsLessSharp;

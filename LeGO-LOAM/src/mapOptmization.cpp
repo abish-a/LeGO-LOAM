@@ -701,32 +701,6 @@ public:
             rate.sleep();
             publishGlobalMap();
         }
-        // save final point cloud
-        pcl::io::savePCDFileASCII(fileDirectory+"finalCloud.pcd", *globalMapKeyFramesDS);
-
-        string cornerMapString = "/tmp/cornerMap.pcd";
-        string surfaceMapString = "/tmp/surfaceMap.pcd";
-        string trajectoryString = "/tmp/trajectory.pcd";
-
-        pcl::PointCloud<PointType>::Ptr cornerMapCloud(new pcl::PointCloud<PointType>());
-        pcl::PointCloud<PointType>::Ptr cornerMapCloudDS(new pcl::PointCloud<PointType>());
-        pcl::PointCloud<PointType>::Ptr surfaceMapCloud(new pcl::PointCloud<PointType>());
-        pcl::PointCloud<PointType>::Ptr surfaceMapCloudDS(new pcl::PointCloud<PointType>());
-        
-        for(int i = 0; i < cornerCloudKeyFrames.size(); i++) {
-            *cornerMapCloud  += *transformPointCloud(cornerCloudKeyFrames[i],   &cloudKeyPoses6D->points[i]);
-    	    *surfaceMapCloud += *transformPointCloud(surfCloudKeyFrames[i],     &cloudKeyPoses6D->points[i]);
-    	    *surfaceMapCloud += *transformPointCloud(outlierCloudKeyFrames[i],  &cloudKeyPoses6D->points[i]);
-        }
-
-        downSizeFilterCorner.setInputCloud(cornerMapCloud);
-        downSizeFilterCorner.filter(*cornerMapCloudDS);
-        downSizeFilterSurf.setInputCloud(surfaceMapCloud);
-        downSizeFilterSurf.filter(*surfaceMapCloudDS);
-
-        pcl::io::savePCDFileASCII(fileDirectory+"cornerMap.pcd", *cornerMapCloudDS);
-        pcl::io::savePCDFileASCII(fileDirectory+"surfaceMap.pcd", *surfaceMapCloudDS);
-        pcl::io::savePCDFileASCII(fileDirectory+"trajectory.pcd", *cloudKeyPoses3D);
     }
 
     void publishGlobalMap(){
