@@ -18,6 +18,6 @@
 
     <!-- Play Back rosbag -->
     <node pkg="rosbag" type="play" name="rosbagplay"
-        args="/home/abish/src/metadata/bag/20170608_1549_lawn_loop_closure/same_position.bag --clock"/>
+        args="/home/abish/src/metadata/bag/kitti_2011_09_30_drive_0034_synced.bag --clock"/>
 
 </launch>

@@ -1,7 +1,6 @@
 #ifndef _UTILITY_LIDAR_ODOMETRY_H_
 #define _UTILITY_LIDAR_ODOMETRY_H_
 
-
 #include <ros/ros.h>
 
 #include <sensor_msgs/Imu.h>
@@ -52,17 +51,23 @@ typedef pcl::PointXYZI  PointType;
 
 extern const string pointCloudTopic = "/velodyne_points";
 extern const string imuTopic = "/imu/data";
-
-// Save pcd
 extern const string fileDirectory = "/tmp/";
 
 // VLP-16
-extern const int N_SCAN = 16;
+//extern const int N_SCAN = 16;
+//extern const int Horizon_SCAN = 1800;
+//extern const float ang_res_x = 0.2;
+//extern const float ang_res_y = 2.0;
+//extern const float ang_bottom = 15.0+0.1;
+//extern const int groundScanInd = 7;
+
+// HDL-64
+extern const int N_SCAN = 64;
 extern const int Horizon_SCAN = 1800;
 extern const float ang_res_x = 0.2;
-extern const float ang_res_y = 2.0;
-extern const float ang_bottom = 15.0+0.1;
-extern const int groundScanInd = 7;
+extern const float ang_res_y = 0.427;
+extern const float ang_bottom = 24.9;
+extern const int groundScanInd = 50;
 
 // HDL-32E
 // extern const int N_SCAN = 32;
@@ -123,6 +128,18 @@ extern const float historyKeyframeFitnessScore = 0.3; // the smaller the better 
 
 extern const float globalMapVisualizationSearchRadius = 500.0; // key frames with in n meters will be visualized
 
+/*
+ * Utility function
+ */
+inline double rad2deg(double radians)
+{
+    return radians * 180.0 / M_PI;
+}
+
+inline double deg2rad(double degrees)
+{
+    return degrees * M_PI / 180.0;
+}
 
 struct smoothness_t{ 
     float value;
