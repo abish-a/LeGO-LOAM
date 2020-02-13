@@ -1,6 +1,7 @@
 #ifndef _UTILITY_LIDAR_ODOMETRY_H_
 #define _UTILITY_LIDAR_ODOMETRY_H_
 
+
 #include <ros/ros.h>
 
 #include <sensor_msgs/Imu.h>
@@ -51,6 +52,8 @@ typedef pcl::PointXYZI  PointType;
 
 extern const string pointCloudTopic = "/velodyne_points";
 extern const string imuTopic = "/imu/data";
+
+// Save pcd
 extern const string fileDirectory = "/tmp/";
 
 // VLP-16
@@ -117,6 +120,7 @@ extern const float edgeThreshold = 0.1;
 extern const float surfThreshold = 0.1;
 extern const float nearestFeatureSearchSqDist = 25;
 
+
 // Mapping Params
 extern const float surroundingKeyframeSearchRadius = 50.0; // key frame that is within n meters from current pose will be considerd for scan-to-map optimization (when loop closure disabled)
 extern const int   surroundingKeyframeSearchNum = 50; // submap size (when loop closure enabled)
@@ -127,18 +131,6 @@ extern const float historyKeyframeFitnessScore = 0.3; // the smaller the better 
 
 extern const float globalMapVisualizationSearchRadius = 500.0; // key frames with in n meters will be visualized
 
-/*
- * Utility function
- */
-inline double rad2deg(double radians)
-{
-    return radians * 180.0 / M_PI;
-}
-
-inline double deg2rad(double degrees)
-{
-    return degrees * M_PI / 180.0;
-}
 
 struct smoothness_t{ 
     float value;
