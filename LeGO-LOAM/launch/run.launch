@@ -22,6 +22,7 @@
     <node pkg="lego_loam" type="transformFusion"    name="transformFusion"    output="screen"/>
 
     <!-- Load data -->
-    <!-- <node pkg="rosbag" type="play" name="player" args="$(find lego_loam)/../../../data/seq04.bag clock topic /kitti/velo/pointcloud kitti/oxts/imu"/> -->
+    <node pkg="rosbag" type="play" name="player" args="/home/abish/src/metadata/bag/kitti_2011_09_30_drive_0034_synced.bag 
+                --clock --topic /kitti/velo/pointcloud"/>
 
 </launch>
