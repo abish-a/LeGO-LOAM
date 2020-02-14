@@ -64,7 +64,9 @@ private:
 
     ros::Publisher pubLaserCloudSurround;
     ros::Publisher pubOdomAftMapped;
-    ros::Publisher pubKeyPoses;
+    //ros::Publisher pubKeyPoses;
+    ros::Publisher pubAftMappedPath;
+    nav_msgs::Path laserAfterMappedPath;
 
     ros::Publisher pubHistoryKeyFrames;
     ros::Publisher pubIcpKeyFrames;
@@ -230,7 +232,8 @@ public:
 		parameters.relinearizeSkip = 1;
     	isam = new ISAM2(parameters);
 
-        pubKeyPoses = nh.advertise<sensor_msgs::PointCloud2>("/key_pose_origin", 2);
+        pubAftMappedPath = nh.advertise<nav_msgs::Path> ("/aft_mapped_path", 100);
+        //pubKeyPoses = nh.advertise<sensor_msgs::PointCloud2>("/key_pose_origin", 2);
         pubLaserCloudSurround = nh.advertise<sensor_msgs::PointCloud2>("/laser_cloud_surround", 2);
         pubOdomAftMapped = nh.advertise<nav_msgs::Odometry> ("/aft_mapped_to_init", 5);
 
@@ -678,12 +681,22 @@ public:
 
     void publishKeyPosesAndFrames(){
 
-        if (pubKeyPoses.getNumSubscribers() != 0){
-            sensor_msgs::PointCloud2 cloudMsgTemp;
-            pcl::toROSMsg(*cloudKeyPoses3D, cloudMsgTemp);
-            cloudMsgTemp.header.stamp = ros::Time().fromSec(timeLaserOdometry);
-            cloudMsgTemp.header.frame_id = "/camera_init";
-            pubKeyPoses.publish(cloudMsgTemp);
+//        if (pubKeyPoses.getNumSubscribers() != 0){
+//            sensor_msgs::PointCloud2 cloudMsgTemp;
+//            pcl::toROSMsg(*cloudKeyPoses3D, cloudMsgTemp);
+//            cloudMsgTemp.header.stamp = ros::Time().fromSec(timeLaserOdometry);
+//            cloudMsgTemp.header.frame_id = "/camera_init";
+//            pubKeyPoses.publish(cloudMsgTemp);
+//        }
+
+        if (pubAftMappedPath.getNumSubscribers() != 0){
+            geometry_msgs::PoseStamped laserAfterMappedPose;
+            laserAfterMappedPose.header = odomAftMapped.header;
+            laserAfterMappedPose.pose = odomAftMapped.pose.pose;
+            laserAfterMappedPath.header.stamp = odomAftMapped.header.stamp;
+            laserAfterMappedPath.header.frame_id = "/camera_init";
+            laserAfterMappedPath.poses.push_back(laserAfterMappedPose);
+            pubAftMappedPath.publish(laserAfterMappedPath);
         }
 
         if (pubRecentKeyFrames.getNumSubscribers() != 0){
